@@ -29,6 +29,11 @@ git add .
 git commit -m "Describe el cambio realizado"
 ```
 
+```bash
+git status
+git log --oneline
+git push
+
 ## Autor
 
 Carolina Arango Escobar
