@@ -3,6 +3,10 @@ Este repositorio será utilizado durante todo el semestre para organizar los tra
 
 Repositorio del curso de Análisis de Algoritmos. Aquí se almacenarán los ejercicios realizados durante el semestre y los informes de laboratorio.
 
+## Organización del semestre
+
+Durante el semestre se utilizará este repositorio para almacenar los ejercicios de clase, los informes de laboratorio y los scripts de medición de tiempos.
+
 ## Estructura del repositorio
 
 * `laboratorios/`: contiene los informes de los cinco laboratorios evaluativos.
