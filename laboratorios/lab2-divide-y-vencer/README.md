@@ -40,3 +40,27 @@ Las pruebas se realizaron usando `assert` y todas las pruebas deben terminar mos
 ```text
 Todas las pruebas pasaron correctamente.
 ```
+
+## Parte 2 — Medición y gráfica
+
+Código utilizado:
+
+* [medicion.py](medicion.py)
+
+Para esta parte se midió el tiempo de ejecución de los dos algoritmos usando diferentes tamaños de entrada. Los tamaños utilizados fueron `10`, `50`, `100`, `200`, `400`, `1000` y `4000`.
+
+Los datos se generaron con una semilla fija y con valores enteros entre `-100` y `100`. Para cada tamaño se utilizó la misma lista para los dos algoritmos, para que la comparación fuera sobre los mismos datos.
+
+El tiempo se midió utilizando `time.perf_counter()` y solamente se tuvo en cuenta el tiempo de ejecución de cada algoritmo. La generación de los datos y la comprobación de los resultados se hicieron por fuera de la medición.
+
+Cada medición se repitió tres veces y se utilizó la mediana de los tiempos para reducir un poco las variaciones que pueden ocurrir durante la ejecución.
+
+También se verificó dentro del experimento que la suma encontrada por fuerza bruta y por divide y vencerás fuera la misma para cada tamaño.
+
+### Gráfica
+
+La siguiente gráfica muestra los tiempos obtenidos para los dos algoritmos:
+
+![Tiempo de ejecución de los algoritmos](graficas/tiempo_vs_n.png)
+
+En la gráfica se pueden comparar las dos curvas a medida que aumenta el tamaño de la entrada. La fuerza bruta aumenta más rápido, mientras que divide y vencerás mantiene tiempos menores en los tamaños más grandes.
