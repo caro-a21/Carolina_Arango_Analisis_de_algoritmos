@@ -46,7 +46,7 @@
 **Lo que puede mejorar:**
 - Casi ninguna función de `algoritmos.py`, `datos.py` ni de los scripts tiene su explicación (docstring estilo Google).
 - Algunas funciones auxiliares no tienen todos los tipos indicados.
-- Hay pequeños detalles de formato PEP 8: espacios en líneas vacías, falta de línea en blanco entre funciones y final de archivo sin salto de línea.
+- Hay pequeños detalles de formato PEP 8: falta de línea en blanco entre funciones.
 
 ## 4. Calidad del análisis de las gráficas (14 / 20)
 **Lo que hizo bien:**
