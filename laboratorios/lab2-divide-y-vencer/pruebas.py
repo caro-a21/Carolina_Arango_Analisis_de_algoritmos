@@ -3,7 +3,7 @@ import random
 from subarreglo import subarreglo_fuerza_bruta, subarreglo_maximo
 
 
-# Caso 1: serie de la situacion problema
+# Caso 1: serie de la situación problema
 serie = [-3, 5, -2, 8, -6, 3, 9, -4]
 
 assert subarreglo_fuerza_bruta(serie)[2] == 17
@@ -44,7 +44,18 @@ resultado_divide = subarreglo_maximo(
 assert resultado_fuerza[2] == 9
 assert resultado_divide[2] == 9
 
-# Caso 6: veinte listas aleatorias
+
+# Caso 6: ninguna función modifica la lista original
+serie = [-4, 2, -1, 5, -3]
+serie_original = serie.copy()
+
+subarreglo_fuerza_bruta(serie)
+subarreglo_maximo(serie, 0, len(serie) - 1)
+
+assert serie == serie_original
+
+
+# Caso 7: veinte listas aleatorias
 random.seed(42)
 
 for _ in range(20):

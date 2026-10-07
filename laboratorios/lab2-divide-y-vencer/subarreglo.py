@@ -1,10 +1,20 @@
-"""Subarreglo maximo: fuerza bruta y divide y venceras."""
+"""Algoritmos para encontrar el subarreglo de suma máxima."""
 
 
 def subarreglo_fuerza_bruta(
     valores: list[float],
 ) -> tuple[int, int, float]:
-    
+    """Encuentra el subarreglo de suma máxima usando fuerza bruta.
+
+    Recorre todas las posibles posiciones de inicio y fin y calcula
+    la suma de cada subarreglo.
+
+    Args:
+        valores: Lista de valores sobre la que se busca el subarreglo.
+
+    Returns:
+        Una tupla con el índice inicial, el índice final y la suma máxima.
+    """
     mejor_inicio = 0
     mejor_fin = 0
     mejor_suma = valores[0]
@@ -29,7 +39,21 @@ def suma_cruzada(
     medio: int,
     fin: int,
 ) -> tuple[int, int, float]:
-    
+    """Encuentra el mejor subarreglo que cruza el punto medio.
+
+    Busca la mejor suma desde el punto medio hacia la izquierda y
+    desde el punto medio hacia la derecha, y combina ambas partes.
+
+    Args:
+        valores: Lista de valores sobre la que se busca el subarreglo.
+        inicio: Índice inicial del rango que se está evaluando.
+        medio: Índice que divide el rango en dos partes.
+        fin: Índice final del rango que se está evaluando.
+
+    Returns:
+        Una tupla con el índice inicial, el índice final y la suma
+        máxima del subarreglo que cruza el punto medio.
+    """
     suma = 0
     mejor_suma_izquierda = float("-inf")
     mejor_inicio = medio
@@ -64,7 +88,20 @@ def subarreglo_maximo(
     inicio: int,
     fin: int,
 ) -> tuple[int, int, float]:
-    
+    """Encuentra el subarreglo de suma máxima por divide y vencerás.
+
+    Divide el problema en dos mitades y compara el mejor subarreglo
+    de la izquierda, el mejor de la derecha y el mejor que cruza
+    el punto medio.
+
+    Args:
+        valores: Lista de valores sobre la que se busca el subarreglo.
+        inicio: Índice inicial del rango que se está evaluando.
+        fin: Índice final del rango que se está evaluando.
+
+    Returns:
+        Una tupla con el índice inicial, el índice final y la suma máxima.
+    """
     if inicio == fin:
         return inicio, fin, valores[inicio]
 
