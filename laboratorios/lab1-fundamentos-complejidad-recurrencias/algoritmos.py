@@ -1,6 +1,19 @@
+"""Algoritmos de ordenamiento para el Laboratorio 1."""
+
 
 def insertion_sort(datos: list[int]) -> tuple[list[int], int]:
-  
+    """Ordena una lista de mayor a menor usando Insertion Sort.
+
+    La función crea una copia de la lista original para no modificarla.
+    También cuenta las comparaciones realizadas entre elementos.
+
+    Args:
+        datos: Lista de números enteros que se desea ordenar.
+
+    Returns:
+        Una tupla que contiene la lista ordenada de mayor a menor
+        y el número total de comparaciones entre elementos.
+    """
     copia = datos.copy()
     comparaciones = 0
 
@@ -21,12 +34,33 @@ def insertion_sort(datos: list[int]) -> tuple[list[int], int]:
 
     return copia, comparaciones
 
+
 def merge_sort(datos: list[int]) -> tuple[list[int], int]:
- 
+    """Ordena una lista de mayor a menor usando Merge Sort.
+
+    La función crea una copia de la lista original para no modificarla.
+    El ordenamiento se realiza de forma recursiva y se cuentan las
+    comparaciones realizadas entre elementos durante la mezcla.
+
+    Args:
+        datos: Lista de números enteros que se desea ordenar.
+
+    Returns:
+        Una tupla que contiene la lista ordenada de mayor a menor
+        y el número total de comparaciones entre elementos.
+    """
     copia = datos.copy()
 
     def ordenar(lista: list[int]) -> tuple[list[int], int]:
-        
+        """Ordena recursivamente una lista y cuenta comparaciones.
+
+        Args:
+            lista: Lista de números enteros que se desea ordenar.
+
+        Returns:
+            Una tupla con la lista ordenada de mayor a menor y el
+            número de comparaciones realizadas.
+        """
         if len(lista) <= 1:
             return lista, 0
 

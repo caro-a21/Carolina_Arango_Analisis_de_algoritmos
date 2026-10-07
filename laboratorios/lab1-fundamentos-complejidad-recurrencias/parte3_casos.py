@@ -1,5 +1,8 @@
+"""Experimento de casos de Insertion Sort."""
+
 import os
 import time
+from collections.abc import Callable
 
 import matplotlib.pyplot as plt
 
@@ -14,8 +17,23 @@ from datos import (
 TAMANOS = [100, 200, 400, 800, 1600, 3200, 6400]
 
 
-def medir_escenario(generador, n: int) -> tuple[float, int]:
-    
+def medir_escenario(
+    generador: Callable[[int], list[int]],
+    n: int,
+) -> tuple[float, int]:
+    """Mide el tiempo y las comparaciones de un escenario.
+
+    Genera los datos utilizando el generador recibido y mide únicamente
+    el tiempo que tarda Insertion Sort en ordenar la lista.
+
+    Args:
+        generador: Función que genera una lista de datos de tamaño n.
+        n: Tamaño de la lista que se desea generar.
+
+    Returns:
+        Una tupla con el tiempo de ejecución en segundos y el número
+        de comparaciones entre elementos.
+    """
     datos = generador(n)
 
     inicio = time.perf_counter()
@@ -28,7 +46,15 @@ def medir_escenario(generador, n: int) -> tuple[float, int]:
 
 
 def ejecutar_experimento() -> dict:
-    
+    """Ejecuta las pruebas para los tres escenarios.
+
+    Se prueban los escenarios aleatorio, casi ordenado e inverso
+    utilizando todos los tamaños definidos en TAMANOS.
+
+    Returns:
+        Un diccionario con los tiempos y las comparaciones obtenidas
+        para cada escenario.
+    """
     resultados = {
         "A - Aleatorio": {
             "tiempos": [],
@@ -72,7 +98,14 @@ def ejecutar_experimento() -> dict:
 
 
 def graficar_comparaciones(resultados: dict) -> None:
-    """Genera la grafica de comparaciones."""
+    """Genera la gráfica de comparaciones.
+
+    Crea una gráfica con el número de comparaciones realizadas por
+    Insertion Sort en cada uno de los tres escenarios.
+
+    Args:
+        resultados: Diccionario con los resultados del experimento.
+    """
     os.makedirs("graficas", exist_ok=True)
 
     plt.figure()
@@ -85,9 +118,9 @@ def graficar_comparaciones(resultados: dict) -> None:
             label=nombre,
         )
 
-    plt.title("Comparaciones de insertion sort")
-    plt.xlabel("Tamano de entrada (n)")
-    plt.ylabel("Numero de comparaciones")
+    plt.title("Comparaciones de Insertion Sort")
+    plt.xlabel("Tamaño de entrada (n)")
+    plt.ylabel("Número de comparaciones")
     plt.legend()
     plt.grid(True)
     plt.tight_layout()
@@ -101,7 +134,14 @@ def graficar_comparaciones(resultados: dict) -> None:
 
 
 def graficar_tiempos(resultados: dict) -> None:
-    """Genera la grafica de tiempos."""
+    """Genera la gráfica de tiempos de ejecución.
+
+    Crea una gráfica con el tiempo de ejecución de Insertion Sort
+    para cada uno de los tres escenarios.
+
+    Args:
+        resultados: Diccionario con los resultados del experimento.
+    """
     os.makedirs("graficas", exist_ok=True)
 
     plt.figure()
@@ -114,8 +154,8 @@ def graficar_tiempos(resultados: dict) -> None:
             label=nombre,
         )
 
-    plt.title("Tiempo de ejecucion de insertion sort")
-    plt.xlabel("Tamano de entrada (n)")
+    plt.title("Tiempo de ejecución de Insertion Sort")
+    plt.xlabel("Tamaño de entrada (n)")
     plt.ylabel("Tiempo (segundos)")
     plt.legend()
     plt.grid(True)
@@ -130,14 +170,14 @@ def graficar_tiempos(resultados: dict) -> None:
 
 
 def main() -> None:
-    """Ejecuta el experimento y genera las graficas."""
+    """Ejecuta el experimento y genera las gráficas."""
     resultados = ejecutar_experimento()
 
     graficar_comparaciones(resultados)
     graficar_tiempos(resultados)
 
     print("\nExperimento terminado.")
-    print("Graficas guardadas en la carpeta graficas.")
+    print("Gráficas guardadas en la carpeta graficas.")
 
 
 if __name__ == "__main__":
