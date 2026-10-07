@@ -10,54 +10,117 @@ Se trabaja principalmente con el algoritmo Insertion Sort y se compara posterior
 
 ---
 
-# Cómo ejecutar el laboratorio
+## Cómo reproducir el experimento
 
-Este laboratorio fue realizado en **Windows utilizando CMD**.
+Para reproducir los experimentos es necesario tener instalado **Python 3** y descargar o clonar este repositorio.
 
-## 1. Ubicarse en la carpeta del repositorio
+### 1. Ubicarse en la carpeta del laboratorio
 
-Desde CMD:
+Después de descargar el repositorio, abrir una terminal y entrar a la carpeta:
 
-```cmd
-cd "C:\Users\Caro\Desktop\OCTAVO SEMESTRE\Analisis de algoritmos\curso-analisis-algoritmos"
+```text
+curso-analisis-algoritmos/laboratorios/lab1-fundamentos-complejidad-recurrencias
 ```
 
-Después entrar a la carpeta del laboratorio:
+### 2. Activar el entorno virtual
 
-```cmd
-cd laboratorios\lab1-fundamentos-complejidad-recurrencias
-```
+Si el entorno virtual `venv` ya existe en la raíz del repositorio, se puede activar dependiendo del sistema operativo.
 
-## 2. Activar el entorno virtual
-
-El entorno virtual está ubicado en la raíz del repositorio. Desde la carpeta del laboratorio se activa con:
+**Windows (CMD):**
 
 ```cmd
 ..\..\venv\Scripts\activate
 ```
 
-Si se activó correctamente, debe aparecer `(venv)` al comienzo de la línea en CMD.
+**Windows (PowerShell):**
 
-## 3. Ejecutar la Parte 3
+```powershell
+..\..\venv\Scripts\Activate.ps1
+```
 
-```cmd
+**macOS o Linux:**
+
+```bash
+source ../../venv/bin/activate
+```
+
+Si el entorno virtual todavía no existe, se puede crear desde la raíz del repositorio con:
+
+```bash
+python -m venv venv
+```
+
+En algunos sistemas puede ser necesario utilizar `python3`:
+
+```bash
+python3 -m venv venv
+```
+
+Luego se activa siguiendo el comando correspondiente al sistema operativo.
+
+### 3. Instalar las dependencias
+
+Desde la carpeta del laboratorio, instalar las dependencias del proyecto:
+
+```bash
+pip install -r ../../requirements.txt
+```
+
+Si el sistema utiliza `pip3`, también puede utilizarse:
+
+```bash
+pip3 install -r ../../requirements.txt
+```
+
+### 4. Ejecutar el experimento de la Parte 3
+
+Desde la carpeta:
+
+```text
+lab1-fundamentos-complejidad-recurrencias
+```
+
+ejecutar:
+
+```bash
 python parte3_casos.py
 ```
 
-Este programa realiza las pruebas de Insertion Sort y genera las siguientes gráficas:
+Este script ejecuta Insertion Sort sobre los tres escenarios:
 
-- `graficas\parte3_comparaciones.png`
-- `graficas\parte3_tiempo.png`
+* **A — Aleatorio**
+* **B — Casi ordenado**
+* **C — Inverso**
 
-## 4. Ejecutar la Parte 4
+Al finalizar, se generan las siguientes gráficas:
 
-```cmd
+```text
+graficas/parte3_comparaciones.png
+graficas/parte3_tiempo.png
+```
+
+### 5. Ejecutar el experimento de la Parte 4
+
+Ejecutar:
+
+```bash
 python parte4_complejidad.py
 ```
 
-Este programa compara Insertion Sort y Merge Sort y genera:
+Este experimento compara los tiempos de ejecución de **Insertion Sort** y **Merge Sort** utilizando los mismos tamaños de entrada.
 
-- `graficas\parte4_tiempo.png`
+Al finalizar, se genera:
+
+```text
+graficas/parte4_tiempo.png
+```
+
+### Nota sobre los resultados
+
+Los tiempos de ejecución pueden variar dependiendo del computador, sistema operativo y otros procesos que estén ejecutándose al mismo tiempo. Por esta razón, los tiempos obtenidos al reproducir el experimento pueden ser diferentes a los mostrados en este informe.
+
+La semilla utilizada para la generación de datos aleatorios permite mantener los mismos datos de entrada en las pruebas correspondientes, facilitando la comparación de los algoritmos.
+
 
 ---
 
