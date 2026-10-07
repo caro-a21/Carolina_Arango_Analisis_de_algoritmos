@@ -1,81 +1,87 @@
 # Retroalimentación — Laboratorio 1: Fundamentos, complejidad y recurrencias
 
 **Estudiante:** Carolina Arango Escobar · **Laboratorio:** Laboratorio evaluativo 01 — Fundamentos, complejidad y recurrencias
-**Fecha límite:** 2026-10-06 23:59 · **Versión revisada:** commit `362d6c5`
+**Fecha límite:** 2026-10-07 23:59 · **Versión revisada:** commit `ed3cbcc`
+
+Muy buen trabajo, el informe es claro y las mediciones respaldan sus conclusiones.
 
 ## Nota
 
 | Criterio | Puntos |
 |---|---|
-| Corrección conceptual | 9 / 25 |
-| Calidad de la explicación teórica | 12 / 25 |
-| Corrección de la implementación | 13 / 20 |
-| Calidad del análisis de las gráficas | 14 / 20 |
-| Documentación y organización del informe | 8 / 10 |
-| **Total** | **56 / 100** |
-| **Nota (0–5)** | **2.80** |
+| Corrección conceptual | 21 / 25 |
+| Calidad de la explicación teórica | 20 / 25 |
+| Corrección de la implementación | 19 / 20 |
+| Calidad del análisis de las gráficas | 18 / 20 |
+| Documentación y organización del informe | 9 / 10 |
+| **Total** | **87 / 100** |
+| **Nota (0–5)** | **4.35** |
 
-## 1. Corrección conceptual (9 / 25)
+## 1. Corrección conceptual (21 / 25)
 **Lo que hizo bien:**
-- Distingue entre un algoritmo que da el resultado correcto y uno que además lo da a tiempo, y menciona las 4 horas.
-- Plantea un segundo ejemplo propio (Black Friday) y explica que comprar un computador más rápido no cambia cómo crece el trabajo.
-- Relaciona el tiempo de ejecución con el gasto de energía.
+- Distingue entre resultado correcto y resultado a tiempo, y nombra la restricción que Tamiza incumple: terminar los 1.200.000 registros entre las 2:00 y las 6:00 a. m.
+- Explica que un servidor más rápido no cambia cómo crece el trabajo del algoritmo.
+- El ejemplo propio (tienda en línea en Black Friday) trae cantidad de datos y límite de tiempo.
+- Relaciona el tiempo de ejecución con el consumo de energía y su acumulación noche tras noche.
+- Da dos perjuicios concretos (el paciente de riesgo alto sin llamar a tiempo y el operador con una lista incompleta) e indica quién asume el costo.
+- Reconoce que el orden de la lista decide a quién se llama primero.
 
 **Lo que puede mejorar:**
-- Parte 1: el ejemplo del Black Friday no dice cuántos datos hay ni qué límite se incumple. No se nombra claramente la restricción que Tamiza incumple (terminar antes de las 6:00 a. m. con 1.200.000 registros).
-- Parte 2: falta explicar por qué el consumo se multiplica al correr todas las madrugadas durante años.
-- Parte 2: faltan al menos dos perjuicios concretos para una persona (por ejemplo, un paciente de alto riesgo al que no se llama a tiempo) y quién asume el costo de cada uno.
-- Parte 2: no se discute que el orden de la lista decide a quién se llama primero y qué obligación trae eso.
+- Parte 1: explique con más detalle por qué el servidor doble no basta (por ejemplo, qué pasa con el tiempo si los registros siguen creciendo).
+- Parte 2: el costo de cada perjuicio queda repartido de forma general; diga con claridad quién lo asume en cada caso.
+- Parte 2.3: desarrolle la obligación adicional (verificar que el orden sea correcto, no solo rápido).
 
-## 2. Calidad de la explicación teórica (12 / 25)
+## 2. Calidad de la explicación teórica (20 / 25)
 **Lo que hizo bien:**
-- La Parte 3.1 define los tres casos, indica sobre qué se toma cada uno, justifica que usaría el peor caso por la ventana estricta y deja escrita la predicción antes de medir.
+- Define los tres casos, dice sobre qué se toma el máximo, el mínimo y el promedio, justifica que usaría el peor caso por la ventana estricta y deja la predicción antes de medir.
+- Explica cada término de `T(n) = 2T(n/2) + Θ(n)`.
+- Resuelve con el método maestro: identifica `a = 2`, `b = 2`, `f(n) = Θ(n)`, verifica el caso 2 y concluye `Θ(n log n)`.
 - La tabla de complejidades es correcta.
 
 **Lo que puede mejorar:**
-- Parte 4.1: la recurrencia de merge sort se escribe, pero no se explica de dónde sale cada término (dos subproblemas, mitad del tamaño, costo de mezclar).
-- Se dice "al aplicar el método maestro" sin mostrar `a`, `b`, `f(n)` ni verificar la condición del caso. Falta el desarrollo paso a paso.
-- Falta el cálculo de insertion sort línea a línea (cuántas veces se ejecuta cada línea y la suma).
-- En 3.1 la definición del caso promedio es muy general.
+- El cálculo de insertion sort no es línea a línea: falta indicar cuántas veces se ejecuta cada línea del código y sumar esos costos.
+- El caso promedio de insertion sort se afirma sin justificarlo (por ejemplo, que en promedio cada elemento se desplaza la mitad del camino).
+- En 3.1 el caso promedio queda definido de forma muy general.
 
-## 3. Corrección de la implementación (13 / 20)
+## 3. Corrección de la implementación (19 / 20)
 **Lo que hizo bien:**
-- `insertion_sort` y `merge_sort` ordenan bien (de mayor a menor) los tres escenarios, no cambian la lista original y cuentan comparaciones entre elementos. No usan `sorted()` ni `list.sort()`.
-- Los generadores producen listas de tamaño `n` con valores distintos, y el escenario B queda con el 2 % desordenado al final.
+- `insertion_sort` y `merge_sort` ordenan bien de mayor a menor los tres escenarios, no cambian la lista recibida y cuentan solo comparaciones entre elementos. No usan `sorted()` ni `list.sort()`, y la mezcla de `merge_sort` es propia y recursiva.
+- Los generadores dan listas de tamaño `n` con valores distintos y semilla reproducible.
+- Todas las funciones tienen tipos y docstrings estilo Google, y el formato es limpio.
 
 **Lo que puede mejorar:**
-- Casi ninguna función de `algoritmos.py`, `datos.py` ni de los scripts tiene su explicación (docstring estilo Google).
-- Algunas funciones auxiliares no tienen todos los tipos indicados.
-- Hay pequeños detalles de formato PEP 8: falta de línea en blanco entre funciones.
+- En `generar_casi_ordenado`, el 2 % final son los valores más bajos de la lista, así que el caso es algo más favorable que un lote real con valores mezclados.
+- Los docstrings de `algoritmos.py` y `datos.py` difieren un poco de los pedidos en el enunciado.
 
-## 4. Calidad del análisis de las gráficas (14 / 20)
+## 4. Calidad del análisis de las gráficas (18 / 20)
 **Lo que hizo bien:**
-- Las tres gráficas existen, tienen título, ejes con unidad y leyenda, y se ven en el informe.
+- Las tres gráficas existen, con título, ejes rotulados y leyenda, y se ven en el informe.
 - Identifica con cifras que C es el peor caso, B el mejor y A se acerca al promedio, y lo contrasta con su predicción.
-- En 4.2 concluye que merge sort es mejor, describe cómo crece cada curva y lo conecta con `O(n²)` y `O(n log n)`.
-- En 4.3 recomienda merge sort, da una estimación (declarada como tal) y menciona la memoria extra.
+- Concluye que merge sort es mejor describiendo cada curva y lo conecta con `O(n²)` y `O(n log n)`; explica por qué en tamaños pequeños están cerca.
+- Extrapola a 1.200.000 registros con su razonamiento (factor de tamaño al cuadrado y `n log n`) y declara que es una estimación: unas 4,71 horas para insertion sort contra unos 2 segundos para merge sort.
+- Responde a la compra del servidor con el dato de n = 6400 y recomienda merge sort pensando en que el canal puede cambiar; menciona la memoria extra.
 
 **Lo que puede mejorar:**
-- No explica cómo hizo la extrapolación a 1.200.000 registros; solo da el resultado.
-- La respuesta a la compra del servidor no cita la gráfica ni el tamaño del que tomó el dato.
-- Falta decir por qué en tamaños pequeños las dos curvas casi coinciden.
-- No pidió una sola recomendación pensando en que el canal de entrada puede cambiar (si el lote llega casi ordenado, insertion sort sería rápido).
+- Las gráficas de la Parte 3 usan una escala en la que el escenario B queda pegado a cero; una escala logarítmica mostraría mejor las diferencias.
+- Discuta más consideraciones además de la memoria (estabilidad, mantenimiento, riesgo de que B deje de ser casi ordenado).
+- Aclare si repitió las mediciones o si usó una sola corrida.
 
-## 5. Documentación y organización del informe (8 / 10)
+## 5. Documentación y organización del informe (9 / 10)
 **Lo que hizo bien:**
 - La carpeta del laboratorio está en una ubicación válida, con todos los archivos y gráficas pedidos.
-- El informe está dividido por partes, enlaza el código y muestra las gráficas.
-- Tiene varios commits con mensajes descriptivos.
+- El informe sigue el orden de las partes, enlaza el código de cada parte práctica y tiene las gráficas incrustadas con rutas que funcionan.
+- Incluye instrucciones de reproducción para varios sistemas y 8 commits descriptivos.
 
 **Lo que puede mejorar:**
-- Las instrucciones de reproducción usan la ruta `lab1-fundamentos-complejidad-recurrencias/...`, pero la carpeta está dentro de `laboratorios/`, así que los comandos no funcionan tal como están escritos. Además, solo sirven en Windows.
+- Las instrucciones parten de una carpeta llamada `curso-analisis-algoritmos`, que puede no coincidir con el nombre real de su repositorio.
+- La carpeta `graficas/` y los scripts están bien, pero el informe se divide en secciones extra (4.4, 4.5) en lugar de un único concepto técnico dirigido a la Secretaría.
 
 ## ¿El código funciona?
-Sí. Los dos algoritmos ordenan correctamente, los scripts corren sin errores y generan las gráficas.
+Sí. Los dos algoritmos ordenan bien, los dos scripts corren sin errores y generan las gráficas.
 
 ## Para el próximo laboratorio
-- Responda cada punto que pide el enunciado, uno por uno (por ejemplo, los perjuicios a personas y quién asume el costo).
-- Muestre el desarrollo completo de las recurrencias y del cálculo línea a línea, no solo el resultado.
-- Explique cómo hace sus extrapolaciones y cite la gráfica y el tamaño que usa como dato.
-- Agregue docstrings y tipos a todas las funciones y revise el formato PEP 8.
-- Revise que los comandos del informe funcionen desde la ruta real de la carpeta.
+- Desarrolle el cálculo línea a línea indicando cuántas veces se ejecuta cada línea y sumando.
+- Justifique el caso promedio con un argumento y no solo con la afirmación.
+- Profundice las consideraciones distintas del tiempo (estabilidad, mantenimiento, riesgos del flujo de datos).
+- Repita cada medición varias veces y reporte el promedio o la mediana.
+- Use una escala logarítmica cuando una curva quede pegada al eje.
