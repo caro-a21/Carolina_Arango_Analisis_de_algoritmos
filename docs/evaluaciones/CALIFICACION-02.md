@@ -61,7 +61,7 @@ Muy buen trabajo: el código es correcto y el informe se apoya en sus propias me
 - Cada parte enlaza su código, hay instrucciones claras para reproducir y varios commits descriptivos.
 
 ## ¿El código funciona?
-Sí. Las pruebas pasan, ambos algoritmos coinciden en cientos de listas aleatorias que probé, y `medicion.py` corre bien y genera la gráfica.
+Sí. Las pruebas pasan, ambos algoritmos coinciden en cientos de listas aleatorias, y `medicion.py` corre bien y genera la gráfica.
 
 ## Para el próximo laboratorio
 - Explique de dónde sale cada término de la recurrencia (cuántos subproblemas y de qué tamaño).
