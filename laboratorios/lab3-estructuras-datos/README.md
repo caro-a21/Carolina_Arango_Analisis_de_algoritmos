@@ -4,7 +4,7 @@
 
 ## Cómo ejecutar el laboratorio
 
-Para ejecutar el laboratorio, primero se debe ubicar la carpeta principal del repositorio y activar el entorno virtual.
+Para ejecutar el laboratorio, primero se debe ubicar la carpeta principal del repositorio e instalar las dependencias necesarias.
 
 ### 1. Instalar las dependencias
 
@@ -48,13 +48,13 @@ cd laboratorios/lab3-estructuras-datos
 python pruebas.py
 ```
 
-### 5. Ejecutar los experimentos de medición
+### 5. Ejecutar los experimentos
 
 ```bash
 python medicion.py
 ```
 
-Este último archivo ejecuta los dos experimentos, muestra los tiempos de búsqueda y genera las gráficas correspondientes dentro de la carpeta `graficas`.
+Este archivo ejecuta los dos experimentos, muestra los tiempos de búsqueda y genera las gráficas dentro de la carpeta `graficas`.
 
 ---
 
@@ -66,7 +66,7 @@ Para esta parte se implementaron dos estructuras de datos: una lista enlazada y 
 
 Se implementó una lista enlazada para almacenar los números de guía y sus respectivos estados. Cada nodo contiene la información de una guía, su estado y una referencia al siguiente nodo.
 
-Las operaciones principales implementadas permiten insertar elementos y buscar una guía dentro de la lista.
+Las operaciones principales permiten insertar elementos y buscar una guía dentro de la lista.
 
 ### Tabla hash
 
@@ -110,7 +110,7 @@ También se realizaron pruebas con 20 colecciones aleatorias, verificando búsqu
 
 Para esta parte se realizaron experimentos con el objetivo de comparar el tiempo de búsqueda de una lista enlazada y una tabla hash, y observar cómo influye el factor de carga en el rendimiento de la tabla hash.
 
-Las mediciones se realizaron utilizando `time.perf_counter()`, tomando el tiempo de las búsquedas y calculando el promedio por consulta. Cada medición se repitió tres veces.
+Las mediciones se realizaron utilizando `time.perf_counter()`. Se midió el tiempo de las búsquedas y se calculó el promedio por consulta. Cada medición se repitió tres veces.
 
 ### Experimento A. Lista enlazada frente a tabla hash
 
@@ -122,7 +122,7 @@ Se utilizaron los tamaños:
 
 Para cada tamaño se generó la misma colección de guías para ambas estructuras. Además, se realizaron 200 búsquedas de guías inexistentes, lo que permitió comparar el comportamiento de las estructuras cuando deben determinar que un elemento no está almacenado.
 
-El tamaño de la tabla hash se calculó utilizando un valor primo cercano a la mitad de la cantidad de elementos.
+El tamaño de la tabla hash se calculó utilizando un número primo cercano a la mitad de la cantidad de elementos.
 
 **Resultados obtenidos:**
 
@@ -182,4 +182,67 @@ Por lo tanto, en este experimento se observa que un factor de carga menor favore
 
 ---
 
+## Parte 3. Análisis
 
+### 1. Costo teórico
+
+Buscar una guía inexistente en una lista enlazada cuesta Θ(n), porque es necesario recorrer todos los nodos para comprobar que el elemento no está. En una tabla hash con encadenamiento, el costo promedio es Θ(1 + α), donde α es el factor de carga. Esto supone que la función hash distribuye las guías de manera aproximadamente uniforme entre las casillas. Si todas las guías cayeran en la misma casilla, se formaría una sola cadena y la búsqueda podría costar Θ(n), perdiendo la ventaja de la tabla hash.
+
+### 2. Lo medido contra lo esperado
+
+En la primera gráfica, al pasar de 20.000 a 50.000 elementos, la cantidad de datos se multiplicó por 2,5. Para la lista enlazada, el tiempo pasó de 0.000382 a 0.000969 segundos, por lo que su crecimiento fue:
+
+0.000969 / 0.000382 ≈ 2,54.
+
+Esto coincide con el comportamiento esperado de Θ(n), porque el tiempo aumentó aproximadamente en la misma proporción que la cantidad de elementos.
+
+En la tabla hash, el tiempo pasó de 0.0000002102 a 0.0000002595 segundos:
+
+0.0000002595 / 0.0000002102 ≈ 1,23.
+
+Este aumento es pequeño frente al crecimiento de los datos, por lo que se aproxima a Θ(1), suponiendo que el factor de carga se mantiene casi constante.
+
+En la segunda gráfica, al aumentar el factor de carga de aproximadamente 0,5 a 10, el tiempo pasó de 1.11e-07 a 4.56e-07 segundos, es decir, aumentó cerca de 4,1 veces. Aunque no es un crecimiento exactamente proporcional a α, sí muestra la tendencia esperada: a mayor factor de carga, mayor tiempo de búsqueda, de acuerdo con Θ(1 + α).
+
+### 3. Explique las colisiones
+
+Una colisión ocurre cuando dos o más guías obtienen la misma posición al aplicar la función hash. Puede ocurrir incluso si hay más casillas que guías, porque la función hash puede asignar diferentes valores a una misma posición.
+
+En el encadenamiento, los elementos que colisionan se guardan en una lista enlazada en la misma casilla. Su ventaja es que permite almacenar varios elementos sin buscar otra posición, aunque requiere memoria adicional y recorrer la cadena.
+
+En el direccionamiento abierto, los elementos se almacenan en otras casillas disponibles de la misma tabla, siguiendo una estrategia de exploración. Su ventaja es que no necesita listas adicionales, pero puede presentar agrupamientos y búsquedas más largas cuando la tabla está muy llena.
+
+Por ejemplo, con m = 7 y la función h(k) = k mod 7, las guías 10, 24 y 17 producen la posición 3. El encadenamiento permite almacenar las tres en una misma casilla mediante una lista enlazada.
+
+### 4. Tabla hash o árbol de búsqueda
+
+La tabla hash no es adecuada para consultas por rango, como buscar las guías entre X y Y, porque sus elementos no están almacenados en un orden que permita recorrer directamente un intervalo.
+
+Un árbol binario de búsqueda sí permite realizar estas consultas porque mantiene los elementos organizados: los menores quedan a la izquierda y los mayores a la derecha. Si está equilibrado, su altura es Θ(log n), y una consulta por rango puede realizarse en Θ(log n + k), donde k es la cantidad de resultados encontrados.
+
+Si se insertan 400.000 guías ya ordenadas en un árbol binario de búsqueda común, este puede convertirse en una estructura similar a una lista. Su altura sería aproximadamente 400.000 niveles. Para construirlo insertando los elementos uno por uno se realizarían aproximadamente 80.000 millones de comparaciones en total:
+
+400.000 × 399.999 / 2 = 79.999.800.000.
+
+Además, una búsqueda individual podría necesitar cerca de 400.000 comparaciones en el peor caso. En cambio, un árbol equilibrado tendría una altura aproximada de 19 niveles y necesitaría alrededor de 20 comparaciones para una búsqueda individual.
+
+### 5. Concepto para la jefa de operaciones
+
+Recomendaría combinar una tabla hash con un árbol de búsqueda equilibrado. La tabla hash permitiría consultar rápidamente el estado de una guía específica, mientras que el árbol facilitaría encontrar las guías dentro de un rango.
+
+Para estimar los tiempos con 5.000.000 de envíos, tomo como referencia la medición de 50.000 elementos. En la lista enlazada, el comportamiento observado entre 20.000 y 50.000 elementos fue aproximadamente lineal: al multiplicarse la cantidad de elementos por 2,5, el tiempo aumentó 2,54 veces. Por eso, suponiendo que se mantiene este comportamiento Θ(n), al pasar de 50.000 a 5.000.000 de elementos (100 veces más), el tiempo estimado sería:
+
+0.00096865 × 100 ≈ 0,097 segundos por búsqueda.
+
+Para la tabla hash, suponiendo que se aumenta el tamaño de la tabla para mantener un factor de carga cercano a 2 y que la función hash distribuye uniformemente las guías, el costo promedio se mantiene aproximadamente constante. Por eso, tomo como referencia la última medición: 0.0000002595 segundos por búsqueda.
+
+Estos valores son estimaciones y no tiempos garantizados, porque dependen del equipo, la implementación y las condiciones de ejecución.
+
+---
+
+## Archivos del laboratorio
+
+- `estructuras.py`: contiene la implementación de la lista enlazada y la tabla hash.
+- `pruebas.py`: contiene las pruebas de funcionamiento de las estructuras.
+- `medicion.py`: realiza los experimentos y calcula los tiempos de búsqueda.
+- `graficas/`: contiene las gráficas generadas por los experimentos.
